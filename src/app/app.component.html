@@ -1,0 +1,64 @@
+<div class="container">
+  <div>
+    <div class="flex justify-center gap-10 mb-10">
+      <div class="flex flex-col gap-10">
+        <p
+          class="text-3xl p-4"
+          [ngClass]="isPlayer1 ? 'border-white border-2' : ''"
+        >
+          {{ player1 ? player1 : "Player 1" }}
+        </p>
+        <p class="text-3xl">{{ clicks1 }}</p>
+      </div>
+      <div class="flex flex-col gap-10">
+        <p
+          class="text-3xl p-4"
+          [ngClass]="isPlayer1 === false ? 'border-white border-2' : ''"
+        >
+          {{ player2 ? player2 : "Player 2" }}
+        </p>
+        <p class="text-3xl">{{ clicks2 }}</p>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="isPlayer1 === false && unsolved === 0"
+    class="flex w-full justify-center text-3xl font-bold shadow-md"
+  >
+    <p>{{ clicks1 < clicks2 ? player1 : player2 }} WIN!!!</p>
+  </div>
+  <div *ngIf="cards.length > 0">
+    <div *ngIf="isPlayer1 === true || unsolved > 0">
+      <div
+        *ngFor="let card of boardH; let w = index"
+        class="flex justify-center items-center gap-2"
+      >
+        <div *ngFor="let card of boardW; let h = index">
+          <app-card
+            [card]="cards[w * boardW.length + h]"
+            (clicked)="handleCardClick($event)"
+          ></app-card>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="unsolved > 0">Remaining unsolved pairs: {{ unsolved }}</div>
+    <div class="flex justify-center gap-4">
+      <button
+        class="mt-4 w-[200px] py-4 rounded-md font-bold text-3xl bg-gradient-to-t from-violet-900 to-violet-400 hover:from-purple-600 hover:to-purple-900 active:mt-[10px] hover:border-white shadow-md"
+        (click)="initGame({ isNext: false })"
+      >
+        New Game
+      </button>
+      <div *ngIf="unsolved == 0 && isPlayer1 === true" s>
+        <div *ngIf="isPlayer1 === true">
+          <button
+            class="mt-4 w-[200px] py-4 rounded-md font-bold text-3xl bg-gradient-to-t from-violet-900 to-violet-400 hover:from-purple-600 hover:to-purple-900 active:mt-[10px] hover:border-white shadow-md"
+            (click)="nextStep()"
+          >
+            Next Player
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

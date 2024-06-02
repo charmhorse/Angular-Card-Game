@@ -1,0 +1,24 @@
+<div class="p-4">
+  <div mat-dialog-title>
+    <h2>Input Player Name</h2>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="players" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Player1</mat-label>
+        <input matInput formControlName="player1" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Player2</mat-label>
+        <input matInput formControlName="player2" required />
+      </mat-form-field>
+      <button
+        type="submit"
+        class="mt-4 w-[200px] text-white py-4 rounded-md m-auto mb-4 font-bold text-3xl bg-gradient-to-t from-violet-900 to-violet-400 hover:from-purple-600 hover:to-purple-900 active:mt-[10px] hover:border-white shadow-md"
+      >
+        Start Game
+      </button>
+    </form>
+  </div>
+  <div mat-dialog-actions></div>
+</div>
